@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perch — App Icon explorations</title>
+<link rel="stylesheet" href="lib/colors_and_type.css">
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg-pasteboard, #e9e9ee); }
+  * { -webkit-font-smoothing: antialiased; }
+  #root { position: fixed; inset: 0; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="app-icon/icons.jsx"></script>
+<script type="text/babel" src="app-icon/showcase.jsx"></script>
+<script type="text/babel">
+const { useId } = React;
+
+const CONCEPTS = [
+  { id: 'monogram', Comp: IconMonogram, name: 'A · Monogram', blurb: 'The current mark, elevated. Serif “P” on the soft sky-blue gradient with a gentle cast shadow and pressed-glass edge. Safest, most “system app” read.' },
+  { id: 'bird', Comp: IconBird, name: 'B · Perched', blurb: 'The name made literal — a friendly songbird settled on a branch. Warm and ownable; says “a calm place your feeds land.”' },
+  { id: 'pperch', Comp: IconPPerch, name: 'C · P-perch', blurb: 'Letter and metaphor fused: the stem of a geometric “P” is the branch, and a tiny bird perches on top. Clever, monogram-legible.' },
+  { id: 'columns', Comp: IconColumns, name: 'D · Columns', blurb: 'Speaks to the actual product — the multi-column reader — as rising bars, with a bird perched on the railing above. Most distinctive.' },
+  { id: 'tray', Comp: IconTray, name: 'E · Light tray', blurb: 'Alternate macOS style: a gradient bird on a soft neutral tile instead of a full-bleed fill. Lighter in a dock full of dark icons.' },
+  { id: 'chirp', Comp: IconChirp, name: 'F · Chirp', blurb: 'Posts as chirps — a bird nested in a speech bubble. Reads instantly as “social,” a touch more app-store playful.' },
+];
+
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="icons" title="Perch — app icon" subtitle="Six directions · macOS squircle · soft sky-blue gradient · Spectrum 2 tokens">
+        {CONCEPTS.map(c => (
+          <DCArtboard key={c.id} id={c.id} label={c.name} width={440} height={566}>
+            <div style={{ padding: 24, height: '100%', boxSizing: 'border-box', background: 'var(--bg-layer-2, #fff)' }}>
+              <Showcase Comp={c.Comp} name={c.name} blurb={c.blurb} />
+            </div>
+          </DCArtboard>
+        ))}
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

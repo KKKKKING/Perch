@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:Perch}",
+      "name": "Debug Perch",
+      "target": "Perch",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug Perch"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:Perch}",
+      "name": "Release Perch",
+      "target": "Perch",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release Perch"
+    }
+  ]
+}

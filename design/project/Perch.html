@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Perch — X &amp; Weibo for Mac</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="lib/colors_and_type.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #0f0e12; overflow: hidden; }
+  * { -webkit-font-smoothing: antialiased; }
+  #root { position: fixed; inset: 0; }
+  button { font-family: var(--font-sans); }
+  .col-scroll::-webkit-scrollbar { width: 9px; height: 9px; }
+  .col-scroll::-webkit-scrollbar-thumb { background: var(--gray-400); border-radius: 9999px; border: 2px solid transparent; background-clip: content-box; }
+  .col-scroll::-webkit-scrollbar-thumb:hover { background: var(--gray-500); background-clip: content-box; }
+  .col-scroll::-webkit-scrollbar-track { background: transparent; }
+  textarea::placeholder, input::placeholder { color: var(--fg-subdued); }
+  @keyframes trayUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  @keyframes winPop { from { transform: scale(.97); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes aaSpin { to { transform: rotate(360deg); } }
+  /* video media: drifting gradient reads as auto-playing, plus a looping progress sweep */
+  @keyframes vidPan { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  @keyframes vidProg { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes imgZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+  .perch-vid-anim { background-size: 220% 220% !important; animation: vidPan 9s ease-in-out infinite; }
+  .perch-vid-prog { animation: vidProg 6s linear infinite; }
+  .perch-img-zoom { animation: imgZoom 16s ease-in-out infinite alternate; }
+  /* timeline lifecycle: shimmer skeleton, spinner, refresh bar, banner drop-in */
+  @keyframes perchShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .perch-skel { background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%); background-size: 200% 100%; animation: perchShimmer 1.5s ease-in-out infinite; }
+  @keyframes perchSpin { to { transform: rotate(360deg); } }
+  @keyframes perchRefbar { 0% { left: -40%; } 100% { left: 100%; } }
+  .perch-refbar { animation: perchRefbar 1s var(--ease-default) infinite; }
+  @keyframes perchBannerIn { from { transform: translateY(-10px); } to { transform: translateY(0); } }
+  @keyframes bmPop { from { transform: scale(.97); } to { transform: scale(1); } }
+  .bm-chips::-webkit-scrollbar { height: 0; width: 0; display: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="app/glyphs.jsx"></script>
+<script type="text/babel" src="app/perchicon.jsx"></script>
+<script type="text/babel" src="app/data.jsx"></script>
+<script type="text/babel" src="app/debug.jsx"></script>
+<script type="text/babel" src="app/feed.jsx"></script>
+<script type="text/babel" src="app/timeline.jsx"></script>
+<script type="text/babel" src="app/tweaks-panel.jsx"></script>
+<script type="text/babel" src="app/videoplayer.jsx"></script>
+<script type="text/babel" src="app/post.jsx"></script>
+<script type="text/babel" src="app/notifications.jsx"></script>
+<script type="text/babel" src="app/postmenus.jsx"></script>
+<script type="text/babel" src="app/detail.jsx"></script>
+<script type="text/babel" src="app/bookmarks.jsx"></script>
+<script type="text/babel" src="app/column.jsx"></script>
+<script type="text/babel" src="app/composekit.jsx"></script>
+<script type="text/babel" src="app/compose.jsx"></script>
+<script type="text/babel" src="app/settings.jsx"></script>
+<script type="text/babel" src="app/addaccount.jsx"></script>
+<script type="text/babel" src="app/media.jsx"></script>
+<script type="text/babel" src="app/navconfig.jsx"></script>
+<script type="text/babel" src="app/shell.jsx"></script>
+</body>
+</html>
