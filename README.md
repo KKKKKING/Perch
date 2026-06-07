@@ -9,6 +9,9 @@
 
 **Perch** is a native macOS app that renders a multi-column X/Twitter timeline reader — a calm, information-dense alternative to the web client, built entirely in AppKit. Login and reads/writes run **live** against X using cookie auth. Weibo support is UI-only for now ("Coming soon").
 
+> ⚠️ **For learning and testing only — not for real/production use.**
+> Perch relies on X's **undocumented internal API**, not an official or public one. It can break at any time, may violate X's Terms of Service, and ships with no stability or support guarantees. Treat this as an educational reference and experiment, not a daily driver.
+
 <p align="center">
   <img src="docs/images/welcome.png" alt="Perch welcome screen" width="520">
 </p>
@@ -116,7 +119,7 @@ docs/                  # supplementary docs + README images
 
 ## Caveats
 
-- **Unofficial client.** Perch talks to X's *undocumented* GraphQL and legacy REST endpoints. This layer is inherently fragile: query IDs, per-operation feature flags, and the transaction-id signature rotate with X's web bundles and can break without notice. Use at your own risk, and be mindful of X's Terms of Service.
+- **Unofficial client — for learning and testing only.** Perch talks to X's *undocumented* GraphQL and legacy REST endpoints, not an official/public API. This layer is inherently fragile: query IDs, per-operation feature flags, and the transaction-id signature rotate with X's web bundles and can break without notice. It is not intended for real or production use — treat it as an educational project, use it at your own risk, and be mindful of X's Terms of Service.
 - **Not affiliated** with X Corp., Twitter, or Sina Weibo.
 - **Weibo is UI-only** today — the screens exist, but there is no live Weibo backend yet.
 - **No password handling.** Perch never sees your password; it only reads session cookies after you log in through X's own web flow.
@@ -127,4 +130,4 @@ The [`design/`](design/) directory is a handoff bundle of HTML/CSS/JS prototypes
 
 ## License
 
-No license file is currently included, so the code is provided as-is with all rights reserved by default. Add a `LICENSE` if you intend to distribute or open-source it.
+Released under the [MIT License](LICENSE).
