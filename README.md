@@ -61,7 +61,7 @@ swift test                  # run the unit tests
 ### GitHub cloud build
 
 The **Build macOS DMG** GitHub Actions workflow can be run manually from the
-Actions tab. It builds and tests Perch on macOS, creates a universal
+Actions tab. It builds Perch on macOS, creates a universal
 Apple Silicon + Intel DMG, and uploads it as a workflow artifact.
 
 Pushing a version tag also creates (or updates) the matching GitHub Release and

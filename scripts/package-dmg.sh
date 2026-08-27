@@ -30,6 +30,7 @@ for arch in $ARCHS; do
     --scratch-path "$scratch" \
     --configuration release \
     --triple "$triple" \
+    --jobs 2 \
     --product Perch
   bin_dir="$(swift build \
     --package-path "$ROOT_DIR" \
