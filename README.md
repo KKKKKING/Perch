@@ -58,6 +58,24 @@ swift test                  # run the unit tests
 .build/debug/Perch          # run an existing debug build
 ```
 
+### GitHub cloud build
+
+The **Build macOS DMG** GitHub Actions workflow can be run manually from the
+Actions tab. It builds and tests Perch on macOS, creates a universal
+Apple Silicon + Intel DMG, and uploads it as a workflow artifact.
+
+Pushing a version tag also creates (or updates) the matching GitHub Release and
+attaches the DMG:
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Cloud builds use an ad-hoc signature, not an Apple Developer ID certificate, so
+macOS may require **Control-click → Open** on first launch. For local packaging,
+run `./scripts/package-dmg.sh`; the DMG is written to `dist/`.
+
 ### Codesigning for live login
 
 The live login flow stores session cookies in the Keychain and authenticates inside a `WKWebView`. An unsigned binary may fail those operations, so the built executable should be codesigned. The quickest stand-in is an ad-hoc signature:
