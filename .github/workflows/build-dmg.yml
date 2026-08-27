@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Version written into the app and DMG filename
-        required: false
-        default: 0.0.0-dev
+        description: Release version without v prefix (for example, 1.2.0)
+        required: true
+        type: string
   push:
     tags:
       - "v*"
@@ -29,13 +29,22 @@ jobs:
       - name: Resolve version
         id: version
         shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_VERSION: ${{ inputs.version }}
+          TAG_NAME: ${{ github.ref_name }}
         run: |
-          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
-            version="${GITHUB_REF_NAME#v}"
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            version="$INPUT_VERSION"
           else
-            version="${{ inputs.version }}"
+            version="${TAG_NAME#v}"
+          fi
+          if ! printf '%s' "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Invalid version: '$version' (expected X.Y.Z)" >&2
+            exit 1
           fi
           echo "value=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
 
       - name: Build universal app and DMG
         env:
@@ -49,14 +58,17 @@ jobs:
           path: dist/*.dmg
           if-no-files-found: error
 
-      - name: Attach DMG to GitHub Release
-        if: github.ref_type == 'tag'
+      - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
         shell: bash
         run: |
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" dist/*.dmg --clobber
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" dist/*.dmg --clobber
           else
-            gh release create "$GITHUB_REF_NAME" dist/*.dmg --generate-notes --title "$GITHUB_REF_NAME"
+            gh release create "$RELEASE_TAG" dist/*.dmg \
+              --target "$GITHUB_SHA" \
+              --generate-notes \
+              --title "$RELEASE_TAG"
           fi

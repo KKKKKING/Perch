@@ -784,6 +784,13 @@ final class AppState {
     /// App returned to the foreground → restart polling and run one immediate tick so
     /// returning shows fresh content without waiting up to the full interval.
     func resumeAutoRefresh() {
+        // The application can become active while the Welcome screen is showing on
+        // a fresh install. There is no account for the default home column in that
+        // state, so timeline identity resolution must not run yet.
+        guard hasAccounts else {
+            stopAutoRefresh()
+            return
+        }
         let shouldRunImmediateTimelineTick = !autoRefreshActive
         startAutoRefresh()
         if shouldRunImmediateTimelineTick {
